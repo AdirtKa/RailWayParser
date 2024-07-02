@@ -20,7 +20,7 @@ def parse_data(page_source: str) -> list[int]:
                 numeric_part += potential_num
 
         result.append(int(numeric_part))
-        # print(value.text, int(numeric_part), result)
+
     return result
 
 

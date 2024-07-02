@@ -14,7 +14,7 @@ def prepare_data(rows: int = None) -> pd.DataFrame:
                      "from dashboards.wagon_deployment "
                      "where departure_station not like ' (%%' and operation_station not like '%%(99%%' "
                      "order by departure_station, start_datetime, operation_datetime;", ENGINE)
-    return df.loc[:rows, ['departure_station', 'operation_station', 'start_datetime']]
+    return df.loc[:rows, ['departure_station', 'operation_station', 'start_datetime', 'operation_datetime']]
 
 
 if __name__ == '__main__':
