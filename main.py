@@ -1,54 +1,34 @@
-import time
+import datetime
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from bs4 import BeautifulSoup
+import pandas as pd
 
-
-WAGON: str = 'Цистерны для нефти'
-DEPARTURE_STATION: str = '654909'
-OPERATION_STATION: str = '828501'
-CARGO: str = '20100'
+from parser import parse_data, enter_param
+from database import prepare_data
 
 
-def parse_data(page_source: str) -> list[int]:
-    soup: BeautifulSoup = BeautifulSoup(page_source, 'html.parser')
-    result: list[int] = []
-    for value in soup.find(class_='form-result').find_all(class_='form-result__col__value')[1:3]:
-        result += value.text.split(' ')[0]
-    return result
+def main() -> pd.DataFrame:
+    # df = prepare_data()
+    df = pd.DataFrame([[datetime.datetime(2024, 3, 2, 1, 56, 0), 'БЕНЗИН (654909)', 'КОРМИЛОВКА (832704)'],
+                       [datetime.datetime(2024, 6, 7, 10, 20, 50), 'БЕНЗИН (654909)', 'КУРГАН (828501)']],
+                      columns=['start_datetime', 'departure_station', 'operation_station'])
+    df_travel = pd.DataFrame([], columns=['traveled_distance', 'operation_datetime'])
 
+    for index, row in df.iterrows():
+        row_data = parse_data(enter_param(row['departure_station'], row['operation_station']))
+        # calculate potential arrived time(operation_datetime)
+        row_data[1] = row['start_datetime'].replace(day=row['start_datetime'].day + row_data[1])
 
-def enter_param() -> str:
-    driver = webdriver.Chrome()
-    driver.get('https://spimex.com/markets/oil_products/rzd/')
+        df_row = pd.DataFrame([row_data], columns=['traveled_distance', 'operation_datetime'])
+        df_travel = pd.concat([df_travel, df_row], axis=0)
 
-    driver.implicitly_wait(2)
+    df_travel = df_travel.reset_index()
 
-    driver.find_elements(By.CLASS_NAME, 'terms__footer__btn')[0].click()
-    driver.find_element(By.CLASS_NAME, 'cookie-agree__button').click()
-
-    driver.find_element(By.NAME, 'wagon').send_keys(WAGON + Keys.RETURN)
-
-    driver.find_element(By.NAME, 'station_from').send_keys(DEPARTURE_STATION)
-    driver.find_element(By.CLASS_NAME, 'form__col-1-2').find_element(By.TAG_NAME, 'li').click()
-
-    driver.find_element(By.NAME, 'station_to').send_keys(OPERATION_STATION)
-    driver.find_elements(By.CLASS_NAME, 'form__col-1-2')[1].find_element(By.TAG_NAME, 'li').click()
-
-    driver.find_element(By.NAME, 'product').send_keys(CARGO)
-    time.sleep(1)
-    driver.find_element(By.CLASS_NAME, 'form__col-1-1').find_element(By.TAG_NAME, 'li').click()
-
-    driver.find_element(By.CLASS_NAME, 'form__submit').click()
-
-    time.sleep(1)
-    driver.close()
-    return driver.page_source
+    result = pd.concat([df_travel,
+                        df[['start_datetime', 'departure_station', 'operation_station']]],
+                       axis=1)
+    return result.loc[:, result.columns != 'index']
 
 
 if __name__ == '__main__':
-    traveled_distance, traveled_time = parse_data(enter_param())
-    print(traveled_distance, traveled_time, sep=' ')
-    
+    pd.set_option('display.max_columns', 10)
+    print(main())

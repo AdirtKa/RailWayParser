@@ -3,3 +3,4 @@ BeautifulSoup4==4.12.3
 lxml==5.2.2
 sqlalchemy==2.0.31
 psycopg2==2.9.9
+pandas==2.2.2
