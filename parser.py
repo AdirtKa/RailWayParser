@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 WAGON: str = 'Цистерны для нефти'
 CARGO: str = '21400'
+# DRIVER_PATH = '/usr/local/bin/chromedriver'
 
 
 def parse_data(page_source: str) -> list[int]:
@@ -25,7 +26,14 @@ def parse_data(page_source: str) -> list[int]:
 
 
 def enter_param(departure_station: str, operation_station: str) -> str:
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1920x1080')
+    options.add_argument('--no-sandbox')
+
+    # service = webdriver.ChromeService(DRIVER_PATH)
+    driver = webdriver.Chrome(options=options)
     driver.get('https://spimex.com/markets/oil_products/rzd/')
 
     driver.implicitly_wait(2)
