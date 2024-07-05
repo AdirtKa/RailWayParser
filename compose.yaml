@@ -12,17 +12,6 @@
   server:
     build:
       context: .
-  db:
-    image: postgres
-    restart: always
-    environment:
-      image: adminer
-      POSTGRES_DB: "din_track1"
-      POSTGRES_USER: "intern"
-      POSTGRES_PASSWORD: "V82VLVQk0u8N"
-      POSTGRES_HOST: "DS-GIS-PostGis01.sahalin.local"
-    ports:
-      - "5432:5432"
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
