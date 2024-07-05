@@ -8,10 +8,6 @@ from database import prepare_data
 
 def main() -> pd.DataFrame:
     df = prepare_data(5)
-    # df = pd.DataFrame([[datetime.datetime(2024, 3, 2, 1, 56, 00),
-    #                    datetime.datetime(2024, 3, 10, 1, 56, 00),
-    #                    'БЕНЗИН (654909)', 'КУРГАН (828501)']],
-    #                   columns=['start_datetime', 'operation_datetime', 'departure_station', 'operation_station'])
     df_travel = pd.DataFrame([], columns=['traveled_distance', 'traveled_days'])
 
     for index, row in df.iterrows():
