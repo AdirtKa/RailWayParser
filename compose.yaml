@@ -7,50 +7,22 @@
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
-# version: '3'
-# services:
-#  server:
-#    build:
-#      context: .
-#    ports:
-#      - 30033:30033
-# version: '3.1'
-# services:
-#   selenium_app:
-#     build: .
-#     container_name: selenium_app
-#     volumes:
-#       - .:/app
-#     environment:
-#       - DISPLAY=:99
-#     ports:
-#       - "4444:4444"
-#     shm_size: '2gb'
-#     networks:
-#       - selenium_net
-version: '3.2'
-services:
-  selenium_app:
-    build: .
-    container_name: selenium_app
-    volumes:
-      - .:/app
+ version: '3'
+ services:
+  server:
+    build:
+      context: .
+  db:
+    image: postgres
+    restart: always
     environment:
-      - DISPLAY=:99
+      image: adminer
+      POSTGRES_DB: "din_track1"
+      POSTGRES_USER: "intern"
+      POSTGRES_PASSWORD: "V82VLVQk0u8N"
+      POSTGRES_HOST: "DS-GIS-PostGis01.sahalin.local"
     ports:
-      - "4444:4444"
-    shm_size: '2gb'
-    networks:
-      - selenium_net
-  chrome:
-    image: selenium/node-chrome:4.22.0-20240621
-    shm_size: 2gb
-    depends_on:
-      - selenium-hub
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - "5432:5432"
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
@@ -58,10 +30,11 @@ services:
 # database data between container restarts. The `db-password` secret is used
 # to set the database password. You must create `db/password.txt` and add
 # a password of your choosing to it before running `docker compose up`.
+#  postgres:
 #     depends_on:
 #       db:
 #         condition: service_healthy
-#   db:
+#  db:
 #     image: postgres
 #     restart: always
 #     user: postgres

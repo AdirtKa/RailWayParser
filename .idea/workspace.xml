@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7dc9139-f3c5-4fbb-8c3c-4ed7af89e71f" name="Changes" comment="add output to browser page">
-      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="b7dc9139-f3c5-4fbb-8c3c-4ed7af89e71f" name="Changes" comment="change browser for parsing to Microsoft Edge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +137,23 @@
       <option name="project" value="LOCAL" />
       <updated>1720073217290</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add gitignore">
+      <option name="closed" value="true" />
+      <created>1720073829613</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1720073829613</updated>
+    </task>
+    <task id="LOCAL-00009" summary="change browser for parsing to Microsoft Edge">
+      <option name="closed" value="true" />
+      <created>1720153127553</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1720153127553</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -149,6 +165,8 @@
     <MESSAGE value="change output columns" />
     <MESSAGE value="change docker files" />
     <MESSAGE value="add output to browser page" />
-    <option name="LAST_COMMIT_MESSAGE" value="add output to browser page" />
+    <MESSAGE value="add gitignore" />
+    <MESSAGE value="change browser for parsing to Microsoft Edge" />
+    <option name="LAST_COMMIT_MESSAGE" value="change browser for parsing to Microsoft Edge" />
   </component>
 </project>
